@@ -10,7 +10,7 @@ const port = 3000;
 // Define a route for the root URL ("/")
 // When a GET request is made to '/', this function is triggered
 app.get('/', (req, res) => {
-  // Respond with a simple message
+
   res.send('Hello, Node.js World!');
 });
 
