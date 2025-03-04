@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>API Explorer</title>
+</head>
+<body>
+  <h1>Interactive API Explorer</h1>
+  
+  <!-- Section to test GET '/' -->
+  <button id="get-root">Get Welcome Message</button>
+  <p id="root-result"></p>
+
+  <!-- Section to test GET '/data' -->
+  <button id="get-data">Get Async Data</button>
+  <p id="data-result"></p>
+  
+  <!-- Section to test POST '/data' -->
+  <h2>Send Data</h2>
+  <form id="data-form">
+    <input type="text" id="input-data" placeholder="Type some data..." required>
+    <button type="submit">Send</button>
+  </form>
+  <p id="post-result"></p>
+  
+  <script>
+    // How to use information from 'express.js'?
+    
+
+    // Function to handle GET '/' request
+    document.getElementById('get-root').addEventListener('click', () => {
+      fetch('/')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('root-result').innerText = data;
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    // Function to handle GET '/data' request
+    document.getElementById('get-data').addEventListener('click', () => {
+      fetch('/data')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('data-result').innerText = data.message;
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
+    // Function to handle POST '/data' request
+    document.getElementById('data-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const userInput = document.getElementById('input-data').value;
+      
+      fetch('/data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data: userInput })
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('post-result').innerText = JSON.stringify(data);
+      })
+      .catch(error => console.error('Error:', error));
+    });
+  </script>
+</body>
+</html>
