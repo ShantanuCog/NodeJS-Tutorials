@@ -48,7 +48,7 @@
 
     // Function to handle POST '/data' request
     document.getElementById('data-form').addEventListener('submit', (event) => {
-      event.preventDefault();
+      event.preventDefault();       // Prevent the default form submission behaviour
       const userInput = document.getElementById('input-data').value;
       
       fetch('/data', {
@@ -58,6 +58,7 @@
       })
       .then(response => response.json())
       .then(data => {
+        // We use the stringify method to display the JSON object as a string (decoding the JSON)
         document.getElementById('post-result').innerText = JSON.stringify(data);
       })
       .catch(error => console.error('Error:', error));
